@@ -21,6 +21,12 @@ repositories {
     jcenter()
 }
 
+jar{
+	manifest {
+		attributes 'Class-Path':'/build/libs/RiwaBot-1.0-SNAPSHOT.jar'
+	}
+}
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
