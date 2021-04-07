@@ -13,9 +13,10 @@ repositories {
 }
 
 jar{
-	baseName = 'RiwaBot-'
-	version = '1.0-SNAPSHOT'
+	manifest {
+		attributes 'Class-Path':'/build/libs/RiwaBot-1.0-SNAPSHOT.jar'
 	}
+}
 
 
 dependencies {
