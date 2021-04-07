@@ -12,6 +12,11 @@ repositories {
     jcenter()
 }
 
+jar{
+	baseName = 'RiwaBot-'
+	version = '1.0-SNAPSHOT'
+	}
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
