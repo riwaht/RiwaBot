@@ -1,1 +1,1 @@
-worker: java -jar build/libs/RiwaBot-1.0-SNAPSHOT-all.jar
+web: java -Dserver.port=$PORT -jar build/libs/RiwaBot-1.0-SNAPSHOT-all.jar
