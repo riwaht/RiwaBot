@@ -11,6 +11,7 @@ import discord4j.core.object.presence.Presence;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
+import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.rest.util.Color;
 
@@ -47,6 +48,7 @@ public class Bot {
             BigInteger username = u.asBigInteger();
             if ((prefix + " ily").equals(ily.getContent())) {
                 MessageChannel channel = ily.getChannel().block();
+                ily.addReaction(ReactionEmoji.unicode("\u2764")).block();
                 channel.createMessage("<@" + username + ">" + " I love you too!").block();
             }
         });
