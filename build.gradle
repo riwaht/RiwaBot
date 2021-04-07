@@ -4,6 +4,15 @@ plugins {
     id 'maven'
 }
 
+jar{
+    manifest{
+        attributes{
+            'Main-Class': 'com.riwa.Bot',
+            'Class-Path':'build/libs/RiwaBot-1.0-SNAPSHOT.jar'
+        }
+    }
+}
+
 group 'org.riwa'
 version '1.0-SNAPSHOT'
 
