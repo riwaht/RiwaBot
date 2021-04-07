@@ -1,2 +1,2 @@
-com/riwa/Bot.java
- com.riwa.Bot
+Bot.java
+ Bot
