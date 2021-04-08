@@ -187,6 +187,21 @@ public class Bot {
             }
         });
 
+        gateway.on(MessageCreateEvent.class).subscribe(event -> {
+            Message moud = event.getMessage();
+            Snowflake u = event.getMessage().getAuthor().get().getId();
+            BigInteger username = u.asBigInteger();
+            String[] srs = {"srsly" , "bsharafak"};
+            String str = moud.getContent().toLowerCase(Locale.ROOT);
+            BigInteger B = new BigInteger("504053144020320266");
+            for (int i=0; i<srs.length;i++){
+                if (username.equals(B) && str.contains(srs[i])){
+                    MessageChannel channel = moud.getChannel().block();
+                    channel.createMessage("https://media.discordapp.net/attachments/827269529485967442/829768804639703070/a52b6fcf8c842e74ad203a6d077d6cc8.gif?width=162&height=162").block();
+                }
+            }
+        });
+
         gateway.onDisconnect().block();
     }
 }
