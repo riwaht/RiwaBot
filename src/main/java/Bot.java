@@ -44,7 +44,7 @@ public class Bot {
         });
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message ily = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             if ((prefix + " ily").equals(ily.getContent())) {
                 MessageChannel channel = ily.getChannel().block();
@@ -57,7 +57,7 @@ public class Bot {
         String[] insult = {"Fuck you.", "Dumbass.", "Dickhead.", "Trash.", "Ape.", "Apefucker.", "Asshole.", "Bastard.", "Bitch ass motherfucker.", "Brickfucker.", "Clown.", "Dumbass.", "Fuckface.", "Jackass.", "Mongoose.", "Prick.", "Scumbag.", "Retard.", "Sleeze.", "Slut.", "Son of a bitch.", "Tit.", "You're the reason the gene pool needs a lifeguard.", "If I had a face like yours, I'd sue my parents.", "Your only chance of getting laid is to crawl up a chicken's ass and wait.", "I’m busy right now, can I ignore you another time?", "Hold still. I’m trying to imagine you with personality."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message ins = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             if ((prefix + " insult").equals(ins.getContent())) {
                 int x = rnd.nextInt(insult.length);
@@ -69,7 +69,7 @@ public class Bot {
         String[] simp = {"Aishiteru.", "Saranghae.", "You mean the world to me.", "Ganbaremasu.", "I love you more than I love pancakes.", "Je t'aime.", "Te quiero.", "Ich liebe dich.", "Volim te.", "Ti amo.", "Eu te amo.", "Te iubesc.", "I'd pause my game for you.", "You are the reason I wake up everyday.", "You're the first thing that comes to mind when I wake up.", "I wish I could dream about you every night.", "Stop running around my mind and start running into my arms.", "You live in my mind rent free.", "The moon is beautiful, isn't it?", "I'll fix Lebanon's economic situation just to see you happy again.", "I'll cure corona just so I can see you everyday.", "I'll do your homework for you.", "I'll pay your tuition fees.", "I won't sleep again until I can wake up to your face.", "I'll make you pancakes and bring them to you in bed."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message s = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             if (((prefix) + " simp").equals(s.getContent())) {
                 int x = rnd.nextInt(simp.length);
@@ -150,7 +150,7 @@ public class Bot {
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message hsn = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             String[] gif = {"https://tenor.com/view/anime-punch-fight-slam-wall-gif-5012110", "https://animeislife449.files.wordpress.com/2016/10/giphy-2.gif?w=547&h=277", "https://i.gifer.com/RyQn.gif", "https://data.whicdn.com/images/244077564/original.gif", "https://data.whicdn.com/images/218893025/original.gif", "https://pa1.narvii.com/7527/b9fa38809857f27219fee7f03a37e3d1d0973fffr1-458-258_hq.gif"};
             String str = hsn.getContent().toLowerCase(Locale.ROOT);
@@ -166,7 +166,7 @@ public class Bot {
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message ali = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             String[] death = {"death", "die", "kill", "suicide", "seppuku", "unalive", "mut", "mout"};
             String[] love = {"https://i.imgur.com/qIpwm74.gif", "https://i.imgur.com/JYeYniM.gif", "https://i.imgur.com/PoMfSSj.gif", "https://i.imgur.com/lmhD0Kj.gif", "https://i.imgur.com/TlIN05P.gif", "https://fr.fanpop.com/clubs/anime/images/32299263/title/nichijou-gif-photo", "https://gifimage.net/wp-content/uploads/2017/10/nichijou-suplex-gif-8.gif", "https://data.whicdn.com/images/136666177/original.gif", "https://i.pinimg.com/originals/6d/35/71/6d3571ac3190e24b3f6c023a80a57c10.gif"};
@@ -190,7 +190,7 @@ public class Bot {
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message moud = event.getMessage();
-            Snowflake u = event.getMessage().getAuthor().get().getId();
+            Snowflake u = event.getMessage().getAuthor().orElseThrow().getId();
             BigInteger username = u.asBigInteger();
             String[] srs = {"srsly", "bsharafak"};
             String str = moud.getContent().toLowerCase(Locale.ROOT);
