@@ -33,8 +33,8 @@ public class Bot {
                                 .setUrl("https://youtu.be/ub82Xb1C8os")
                                 .setDescription("Command List for RiwaBot:")
                                 .addField("riwriw ily", "Tell Riwa you love her.", true)
-                                .addField("riwriw simp", "Get Riwa to simp for you.", false)
-                                .addField("riwriw insult", "Get Riwa to insult you.", false)
+                                .addField("riwriw simp @User", "Get Riwa to simp for someone.", false)
+                                .addField("riwriw insult @User", "Get Riwa to insult someone.", false)
                                 .addField("riwriw pancake", "Play a 1/10 chance of winning a pancake from Riwa.", true)
                                 .setFooter("Thank you for using RiwaBot", "https://pbs.twimg.com/profile_images/880498232899637249/LBXe7X6z.jpg")
                                 .setTimestamp(Instant.now())
@@ -55,30 +55,47 @@ public class Bot {
         });
 
         Random rnd = new Random();
-        String[] insult = {"Fuck you.", "Dumbass.", "Dickhead.", "Trash.", "Ape.", "Apefucker.", "Asshole.", "Bastard.", "Bitch ass motherfucker.", "Brickfucker.", "Clown.", "Dumbass.", "Fuckface.", "Jackass.", "Mongoose.", "Prick.", "Scumbag.", "Retard.", "Sleeze.", "Slut.", "Son of a bitch.", "Tit.", "You're the reason the gene pool needs a lifeguard.", "If I had a face like yours, I'd sue my parents.", "Your only chance of getting laid is to crawl up a chicken's ass and wait.", "I’m busy right now, can I ignore you another time?", "Hold still. I’m trying to imagine you with personality."};
+        String[] insult = {"dumbass.", "dickhead.", "trash.", "ape.", "apefucker.", "asshole.", "bastard.", "bitch ass motherfucker.", "brickfucker.", "clown.", "dumbass.", "fuckface.", "jackass.", "mongoose.", "prick.", "scumbag.", "retard.", "sleeze.", "slut.", "son of a bitch.", "tit."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message ins = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
-                BigInteger username = u.asBigInteger();
-                if ((prefix + " insult").equals(ins.getContent())) {
-                    int x = rnd.nextInt(insult.length);
-                    MessageChannel channel = ins.getChannel().block();
-                    channel.createMessage("<@" + username + "> " + insult[x]).block();
+                Set<Snowflake> v = event.getMessage().getUserMentionIds();
+                BigInteger user = u.asBigInteger();
+                Object[] username = v.toArray();
+                String str = ins.getContent();
+                if (username.length != 0) {
+                    if (str.contains(prefix + " insult")) {
+                        int x = rnd.nextInt(insult.length);
+                        MessageChannel channel = ins.getChannel().block();
+                        String str1 = username[0].toString();
+                        int i = str1.indexOf("{");
+                        String str2 = str1.substring(i + 1, str1.length() - 1);
+                        channel.createMessage("<@" + user + "> called <@" + str2 + "> a/an " + insult[x]).block();
+                    }
                 }
             }
         });
+
 
         String[] simp = {"Aishiteru.", "Saranghae.", "You mean the world to me.", "Ganbaremasu.", "I love you more than I love pancakes.", "Je t'aime.", "Te quiero.", "Ich liebe dich.", "Volim te.", "Ti amo.", "Eu te amo.", "Te iubesc.", "I'd pause my game for you.", "You are the reason I wake up everyday.", "You're the first thing that comes to mind when I wake up.", "I wish I could dream about you every night.", "Stop running around my mind and start running into my arms.", "You live in my mind rent free.", "The moon is beautiful, isn't it?", "I'll fix Lebanon's economic situation just to see you happy again.", "I'll cure corona just so I can see you everyday.", "I'll do your homework for you.", "I'll pay your tuition fees.", "I won't sleep again until I can wake up to your face.", "I'll make you pancakes and bring them to you in bed."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message s = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
-                BigInteger username = u.asBigInteger();
-                if (((prefix) + " simp").equals(s.getContent())) {
-                    int x = rnd.nextInt(simp.length);
-                    MessageChannel channel = s.getChannel().block();
-                    channel.createMessage("<@" + username + "> " + simp[x]).block();
+                Set<Snowflake> v = event.getMessage().getUserMentionIds();
+                BigInteger user = u.asBigInteger();
+                Object[] username = v.toArray();
+                String str = s.getContent();
+                if (username.length!=0) {
+                    if (str.contains(prefix + " simp")) {
+                        int x = rnd.nextInt(simp.length);
+                        MessageChannel channel = s.getChannel().block();
+                        String str1 = username[0].toString();
+                        int i = str1.indexOf("{");
+                        String str2 = str1.substring(i+1, str1.length()-1);
+                        channel.createMessage("<@" + user + ">: <@" + str2 + "> " + simp[x]).block();
+                    }
                 }
             }
 
