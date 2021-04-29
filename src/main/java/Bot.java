@@ -4,9 +4,6 @@ import java.util.*;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
-import discord4j.core.event.domain.message.MessageEvent;
-import discord4j.core.object.entity.Member;
-import discord4j.core.object.entity.User;
 import discord4j.core.object.presence.Activity;
 import discord4j.core.object.presence.Presence;
 import discord4j.core.GatewayDiscordClient;
@@ -23,7 +20,7 @@ public class Bot {
         String prefix = "riwriw";
         DiscordClient client = DiscordClient.create("ODI1MzA5NTA0MDIzMDM1OTI2.YF8DXw.Eze881ulk0-Ihu0vaFiY86ASbgY");
         GatewayDiscordClient gateway = client.login().block();
-        gateway.updatePresence(Presence.online(Activity.playing("riwriw help"))).block();
+        gateway.updatePresence(Presence.online(Activity.listening("Riwriw's music"))).block();
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message help = event.getMessage();
