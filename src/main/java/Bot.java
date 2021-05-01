@@ -20,7 +20,7 @@ public class Bot {
         String prefix = "riwriw";
         DiscordClient client = DiscordClient.create("ODI1MzA5NTA0MDIzMDM1OTI2.YF8DXw.Eze881ulk0-Ihu0vaFiY86ASbgY");
         GatewayDiscordClient gateway = client.login().block();
-        gateway.updatePresence(Presence.online(Activity.listening("Riwriw's music"))).block();
+        gateway.updatePresence(Presence.online(Activity.playing("riwriw help"))).block();
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message help = event.getMessage();
@@ -34,7 +34,8 @@ public class Bot {
                                 .setDescription("Command List for RiwaBot:")
                                 .addField("riwriw ily", "Tell Riwa you love her.", true)
                                 .addField("riwriw simp @User", "Get Riwa to simp for someone.", false)
-                                .addField("riwriw insult @User", "Get Riwa to insult someone.", false)
+                                .addField("riwriw roast @User", "Get Riwa to roast someone.", false)
+                                .addField("riwriw insult", "Get Riwa to insult you.", false)
                                 .addField("riwriw pancake", "Play a 1/10 chance of winning a pancake from Riwa.", true)
                                 .setFooter("Thank you for using RiwaBot", "https://pbs.twimg.com/profile_images/880498232899637249/LBXe7X6z.jpg")
                                 .setTimestamp(Instant.now())
@@ -55,24 +56,45 @@ public class Bot {
         });
 
         Random rnd = new Random();
-        String[] insult = {"dumbass.", "dickhead.", "trash.", "ape.", "apefucker.", "asshole.", "bastard.", "bitch ass motherfucker.", "brickfucker.", "clown.", "dumbass.", "fuckface.", "jackass.", "mongoose.", "prick.", "scumbag.", "retard.", "sleeze.", "slut.", "son of a bitch.", "tit."};
+        String[] roast = {"dumbass.", "dickhead.", "trash.", "ape.", "apefucker.", "asshole.", "bastard.", "bitch ass motherfucker.", "brickfucker.", "clown.", "dumbass.", "fuckface.", "jackass.", "mongoose.", "prick.", "scumbag.", "retard.", "sleeze.", "slut.", "son of a bitch.", "tit."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
-            Message ins = event.getMessage();
+            Message rst = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
                 Set<Snowflake> v = event.getMessage().getUserMentionIds();
                 BigInteger user = u.asBigInteger();
                 Object[] username = v.toArray();
-                String str = ins.getContent();
+                String str = rst.getContent();
                 if (username.length != 0) {
-                    if (str.contains(prefix + " insult")) {
-                        int x = rnd.nextInt(insult.length);
-                        MessageChannel channel = ins.getChannel().block();
+                    if (str.contains(prefix + " roast")) {
+                        int x = rnd.nextInt(roast.length);
+                        MessageChannel channel = rst.getChannel().block();
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i + 1, str1.length() - 1);
-                        channel.createMessage("<@" + user + "> called <@" + str2 + "> a/an " + insult[x]).block();
+                        if ((roast[x].startsWith("a") || (roast[x].startsWith("e")) || (roast[x].startsWith("i")) || (roast[x].startsWith("o")) || (roast[x].startsWith("u")))) {
+                            channel.createMessage("<@" + user + "> called <@" + str2 + "> an " + roast[x]).block();
+                        }  else {
+                            channel.createMessage("<@" + user + "> called <@" + str2 + "> a " + roast[x]).block();
+                        }
+                        }
                     }
+                }
+
+
+        });
+
+        String[] insult = {"you're the reason the gene pool needs a lifeguard.", "if I had a face like yours, I'd sue my parents.", "your only chance of getting laid is to crawl up a chicken's ass and wait.", "I'm busy right now, can I ignore you another time?", "hold still. I'm trying to imagine you with personality."};
+        gateway.on(MessageCreateEvent.class).subscribe(event -> {
+            Message ins = event.getMessage();
+            if (event.getMessage().getAuthor().isPresent() == true){
+                Snowflake u = event.getMessage().getAuthor().get().getId();
+                BigInteger user = u.asBigInteger();
+                String str = ins.getContent();
+                if (str.equals(prefix + " insult")){
+                    int x = rnd.nextInt(insult.length);
+                    MessageChannel channel = ins.getChannel().block();
+                    channel.createMessage("<@" + user + ">, " + insult[x]).block();
                 }
             }
         });
@@ -94,7 +116,7 @@ public class Bot {
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i+1, str1.length()-1);
-                        channel.createMessage("<@" + user + ">: <@" + str2 + "> " + simp[x]).block();
+                        channel.createMessage("<@" + user + "> wants to tell <@" + str2 + "> '" + simp[x] + "'").block();
                     }
                 }
             }
