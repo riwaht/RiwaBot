@@ -1,9 +1,11 @@
 import java.math.BigInteger;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
+import discord4j.core.object.entity.Member;
 import discord4j.core.object.presence.Activity;
 import discord4j.core.object.presence.Presence;
 import discord4j.core.GatewayDiscordClient;
@@ -12,7 +14,6 @@ import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.rest.util.Color;
-
 
 public class Bot {
 
@@ -36,6 +37,7 @@ public class Bot {
                                 .addField("riwriw simp @User", "Get Riwa to simp for someone.", false)
                                 .addField("riwriw roast @User", "Get Riwa to roast someone.", false)
                                 .addField("riwriw insult", "Get Riwa to insult you.", false)
+                                .addField("riwriw friend", "Check your friendship % with Riwa.", false)
                                 .addField("riwriw pancake", "Play a 1/10 chance of winning a pancake from Riwa.", true)
                                 .setFooter("Thank you for using RiwaBot", "https://pbs.twimg.com/profile_images/880498232899637249/LBXe7X6z.jpg")
                                 .setTimestamp(Instant.now())
@@ -74,12 +76,12 @@ public class Bot {
                         String str2 = str1.substring(i + 1, str1.length() - 1);
                         if ((roast[x].startsWith("a") || (roast[x].startsWith("e")) || (roast[x].startsWith("i")) || (roast[x].startsWith("o")) || (roast[x].startsWith("u")))) {
                             channel.createMessage("<@" + user + "> called <@" + str2 + "> an " + roast[x]).block();
-                        }  else {
+                        } else {
                             channel.createMessage("<@" + user + "> called <@" + str2 + "> a " + roast[x]).block();
-                        }
                         }
                     }
                 }
+            }
 
 
         });
@@ -87,11 +89,11 @@ public class Bot {
         String[] insult = {"you're the reason the gene pool needs a lifeguard.", "if I had a face like yours, I'd sue my parents.", "your only chance of getting laid is to crawl up a chicken's ass and wait.", "I'm busy right now, can I ignore you another time?", "hold still. I'm trying to imagine you with personality."};
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message ins = event.getMessage();
-            if (event.getMessage().getAuthor().isPresent() == true){
+            if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
                 BigInteger user = u.asBigInteger();
                 String str = ins.getContent();
-                if (str.equals(prefix + " insult")){
+                if (str.equals(prefix + " insult")) {
                     int x = rnd.nextInt(insult.length);
                     MessageChannel channel = ins.getChannel().block();
                     channel.createMessage("<@" + user + ">, " + insult[x]).block();
@@ -109,13 +111,13 @@ public class Bot {
                 BigInteger user = u.asBigInteger();
                 Object[] username = v.toArray();
                 String str = s.getContent();
-                if (username.length!=0) {
+                if (username.length != 0) {
                     if (str.contains(prefix + " simp")) {
                         int x = rnd.nextInt(simp.length);
                         MessageChannel channel = s.getChannel().block();
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
-                        String str2 = str1.substring(i+1, str1.length()-1);
+                        String str2 = str1.substring(i + 1, str1.length() - 1);
                         channel.createMessage("<@" + user + "> wants to tell <@" + str2 + "> '" + simp[x] + "'").block();
                     }
                 }
@@ -125,25 +127,28 @@ public class Bot {
 
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             Message em = event.getMessage();
-            if (((prefix) + " pancake").equals(em.getContent())) {
-                MessageChannel channel = em.getChannel().block();
-                int x = rnd.nextInt(11);
-                if (x == 10) {
-                    channel.createEmbed(spec ->
-                            spec.setColor(Color.MOON_YELLOW)
-                                    .setImage("https://preppykitchen.com/wp-content/uploads/2019/08/panncake-feature-n-768x1088.jpg")
-                                    .setTitle("Riwriw Free Pancake")
-                                    .setUrl("https://www.google.com/maps/place/33%C2%B051'45.9%22N+35%C2%B030'29.3%22E/@33.8606291,35.5151926,14.96z/data=!4m6!3m5!1s0x151f176eff280539:0xec08a12481d91ec!7e2!8m2!3d33.8627542!4d35.5081451")
-                                    .setDescription("You won a free pancake with Riwriw!\n")
-                                    .addField("Syrup", "Maple syrup\nChocolate Syrup", true)
-                                    .addField("Toppings", "Nutella\nPeanut Butter\nHershey's\nJam", true)
-                                    .setFooter("Time:", "https://image.freepik.com/free-vector/breakfast-realistic-pancakes-top-view-image_1284-14472.jpg")
-                                    .setTimestamp(Instant.now())).block();
-                } else {
-                    channel.createMessage("No free pancake for you.").block();
+            if (event.getMessage().getAuthor().isPresent() == true) {
+                Snowflake u = event.getMessage().getAuthor().get().getId();
+                Member u1 = event.getMember().get();
+                BigInteger user = u.asBigInteger();
+                if (((prefix) + " pancake").equals(em.getContent())) {
+                    MessageChannel channel = em.getChannel().block();
+                    int x = rnd.nextInt(11);
+                    if (x == 10) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setImage("https://preppykitchen.com/wp-content/uploads/2019/08/panncake-feature-n-768x1088.jpg")
+                                        .setTitle("Riwriw Free Pancake")
+                                        .setUrl("https://www.google.com/maps/place/33%C2%B051'45.9%22N+35%C2%B030'29.3%22E/@33.8606291,35.5151926,14.96z/data=!4m6!3m5!1s0x151f176eff280539:0xec08a12481d91ec!7e2!8m2!3d33.8627542!4d35.5081451")
+                                        .setDescription("<@" + user + ">, you won a free pancake with Riwriw!\n")
+                                        .addField("Syrup", "Maple syrup\nChocolate Syrup", true)
+                                        .addField("Toppings", "Nutella\nPeanut Butter\nHershey's\nJam", true)
+                                        .setFooter("Time:", "https://image.freepik.com/free-vector/breakfast-realistic-pancakes-top-view-image_1284-14472.jpg")
+                                        .setTimestamp(Instant.now())).block();
+                    } else {
+                        channel.createMessage("<@" + user + ">, no free pancake for you.").block();
+                    }
                 }
-
-
             }
         });
 
@@ -249,6 +254,66 @@ public class Bot {
                         channel.createMessage("https://media.discordapp.net/attachments/827269529485967442/829768804639703070/a52b6fcf8c842e74ad203a6d077d6cc8.gif?width=162&height=162").block();
                     }
                 }
+            }
+        });
+
+        gateway.on(MessageCreateEvent.class).subscribe(event -> {
+            Message imp = event.getMessage();
+            if (((prefix) + " friend").equals(imp.getContent())) {
+                MessageChannel channel = imp.getChannel().block();
+                if (event.getMessage().getAuthor().isPresent() == true) {
+                    Snowflake u = event.getMessage().getAuthor().get().getId();
+                    BigInteger username = u.asBigInteger();
+                    BigInteger B = new BigInteger("721399897538166834");
+                    int x;
+                    if (username.equals(B)) {
+                        x = 100;
+                    } else {
+                        x = rnd.nextInt(100);
+                    }
+                    if (x == 100 && username.equals(B)) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://i.pinimg.com/originals/c1/7e/4e/c17e4e37729797bb53147aad86e06b26.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "Aishiteru!", false)
+                                        .setTimestamp(Instant.now())).block();
+                    } else if (x > 80) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://i.pinimg.com/474x/d2/bb/52/d2bb520d18ab3e980d983708946186bc.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "Congrats!", false)
+                                        .setTimestamp(Instant.now())).block();
+                    } else if (x > 60) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://i.pinimg.com/474x/02/9f/2d/029f2d733e5676de4a21b9fa2fec39ea.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "You pass.", false)
+                                        .setTimestamp(Instant.now())).block();
+                    } else if (x > 40) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://p.favim.com/orig/2018/12/01/we-bare-bears--cartoon-Favim.com-6621720.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "Eh...", false)
+                                        .setTimestamp(Instant.now())).block();
+                    } else {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://i.pinimg.com/originals/a8/0e/0c/a80e0c79ac140aafb017b7f4d665abb8.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "Rip.", false)
+                                        .setTimestamp(Instant.now())).block();
+                    }
+                }
+
             }
         });
 
