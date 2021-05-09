@@ -48,7 +48,7 @@ public class Bot {
             Message ily = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
-                BigInteger username = u.asBigInteger();
+                String username = u.asString();
                 if ((prefix + " ily").equals(ily.getContent())) {
                     MessageChannel channel = ily.getChannel().block();
                     ily.addReaction(ReactionEmoji.unicode("\u2764")).block();
@@ -64,7 +64,7 @@ public class Bot {
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
                 Set<Snowflake> v = event.getMessage().getUserMentionIds();
-                BigInteger user = u.asBigInteger();
+                String user = u.asString();
                 Object[] username = v.toArray();
                 String str = rst.getContent();
                 if (username.length != 0) {
@@ -74,7 +74,9 @@ public class Bot {
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i + 1, str1.length() - 1);
-                        if ((roast[x].startsWith("a") || (roast[x].startsWith("e")) || (roast[x].startsWith("i")) || (roast[x].startsWith("o")) || (roast[x].startsWith("u")))) {
+                        if (str2.equals(user)){
+                            channel.createMessage("<@" + user + ">, don't roast yourself. You're a kween.").block();
+                        } else if ((roast[x].startsWith("a") || (roast[x].startsWith("e")) || (roast[x].startsWith("i")) || (roast[x].startsWith("o")) || (roast[x].startsWith("u")))) {
                             channel.createMessage("<@" + user + "> called <@" + str2 + "> an " + roast[x]).block();
                         } else {
                             channel.createMessage("<@" + user + "> called <@" + str2 + "> a " + roast[x]).block();
@@ -91,7 +93,7 @@ public class Bot {
             Message ins = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
-                BigInteger user = u.asBigInteger();
+                String user = u.asString();
                 String str = ins.getContent();
                 if (str.equals(prefix + " insult")) {
                     int x = rnd.nextInt(insult.length);
@@ -108,7 +110,7 @@ public class Bot {
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
                 Set<Snowflake> v = event.getMessage().getUserMentionIds();
-                BigInteger user = u.asBigInteger();
+                String user = u.asString();
                 Object[] username = v.toArray();
                 String str = s.getContent();
                 if (username.length != 0) {
@@ -118,7 +120,11 @@ public class Bot {
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i + 1, str1.length() - 1);
-                        channel.createMessage("<@" + user + "> wants to tell <@" + str2 + "> '" + simp[x] + "'").block();
+                        if (user.equals(str2)){
+                            channel.createMessage("<@" + user + ">, it's good to build self-love.. but don't expect it from a bot.").block();
+                        } else {
+                            channel.createMessage("<@" + user + "> wants to tell <@" + str2 + "> '" + simp[x] + "'").block();
+                        }
                     }
                 }
             }
@@ -129,8 +135,7 @@ public class Bot {
             Message em = event.getMessage();
             if (event.getMessage().getAuthor().isPresent() == true) {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
-                Member u1 = event.getMember().get();
-                BigInteger user = u.asBigInteger();
+                String user = u.asString();
                 if (((prefix) + " pancake").equals(em.getContent())) {
                     MessageChannel channel = em.getChannel().block();
                     int x = rnd.nextInt(11);
@@ -204,8 +209,7 @@ public class Bot {
                 BigInteger username = u.asBigInteger();
                 String[] gif = {"https://tenor.com/view/anime-punch-fight-slam-wall-gif-5012110", "https://animeislife449.files.wordpress.com/2016/10/giphy-2.gif?w=547&h=277", "https://i.gifer.com/RyQn.gif", "https://data.whicdn.com/images/244077564/original.gif", "https://data.whicdn.com/images/218893025/original.gif", "https://pa1.narvii.com/7527/b9fa38809857f27219fee7f03a37e3d1d0973fffr1-458-258_hq.gif"};
                 String str = hsn.getContent().toLowerCase(Locale.ROOT);
-                BigInteger h = new BigInteger("698991509604925572");
-                if (str.contains("baleye") && (username.equals(h))) {
+                if (str.contains("baleye") && (username.equals(username))) {
                     int x = rnd.nextInt(gif.length);
                     MessageChannel channel = hsn.getChannel().block();
                     channel.createMessage("<@" + username + "> " + "hoe don't do it.").block();
@@ -303,7 +307,15 @@ public class Bot {
                                         .setImage("https://p.favim.com/orig/2018/12/01/we-bare-bears--cartoon-Favim.com-6621720.jpg")
                                         .addField("You are " + x + "% important to Riwriw", "Eh...", false)
                                         .setTimestamp(Instant.now())).block();
-                    } else {
+                    } else if (x==40) {
+                        channel.createEmbed(spec ->
+                                spec.setColor(Color.MOON_YELLOW)
+                                        .setTitle("How important are you to Riwriw?")
+                                        .setDescription("A very accurate calculator for your friendship with Riwriw.")
+                                        .setImage("https://img.wattpad.com/cover/111388485-352-k438660.jpg")
+                                        .addField("You are " + x + "% important to Riwriw", "How are you still even alive?", false)
+                                        .setTimestamp(Instant.now())).block();
+                    }else {
                         channel.createEmbed(spec ->
                                 spec.setColor(Color.MOON_YELLOW)
                                         .setTitle("How important are you to Riwriw?")
