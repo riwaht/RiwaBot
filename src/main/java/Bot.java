@@ -1,11 +1,9 @@
 import java.math.BigInteger;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
-import discord4j.core.object.entity.Member;
 import discord4j.core.object.presence.Activity;
 import discord4j.core.object.presence.Presence;
 import discord4j.core.GatewayDiscordClient;
@@ -67,6 +65,8 @@ public class Bot {
                 String user = u.asString();
                 Object[] username = v.toArray();
                 String str = rst.getContent();
+                String riwa = "547628027090305025";
+                String riwabot = "825309504023035926";
                 if (username.length != 0) {
                     if (str.contains(prefix + " roast")) {
                         int x = rnd.nextInt(roast.length);
@@ -74,8 +74,12 @@ public class Bot {
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i + 1, str1.length() - 1);
-                        if (str2.equals(user)){
+                        if (str2.equals(user)) {
                             channel.createMessage("<@" + user + ">, don't roast yourself. You're a kween.").block();
+                        } else if (str2.equals(riwa)) {
+                            channel.createMessage("<@" + user + ">, don't even try, foolish mortal.").block();
+                        } else if (str2.equals(riwabot)){
+                            channel.createMessage("<@" + user + ">, i'm calling <@" + riwa + ">.").block();
                         } else if ((roast[x].startsWith("a") || (roast[x].startsWith("e")) || (roast[x].startsWith("i")) || (roast[x].startsWith("o")) || (roast[x].startsWith("u")))) {
                             channel.createMessage("<@" + user + "> called <@" + str2 + "> an " + roast[x]).block();
                         } else {
@@ -120,8 +124,14 @@ public class Bot {
                         String str1 = username[0].toString();
                         int i = str1.indexOf("{");
                         String str2 = str1.substring(i + 1, str1.length() - 1);
-                        if (user.equals(str2)){
+                        String riwa = "547628027090305025";
+                        String riwabot = "825309504023035926";
+                        if (user.equals(str2)) {
                             channel.createMessage("<@" + user + ">, it's good to build self-love.. but don't expect it from a bot.").block();
+                        } else if (str2.equals(riwa)) {
+                            channel.createMessage("<@" + user + ">, thanks, but be a little original. Buy me pasta instead.").block();
+                        } else if (str2.equals(riwabot)){
+                            channel.createMessage("<@" + user + ">, you're that down bad, huh?").block();
                         } else {
                             channel.createMessage("<@" + user + "> wants to tell <@" + str2 + "> '" + simp[x] + "'").block();
                         }
@@ -224,7 +234,7 @@ public class Bot {
                 Snowflake u = event.getMessage().getAuthor().get().getId();
                 BigInteger username = u.asBigInteger();
                 String[] death = {"death", "die", "kill", "suicide", "seppuku", "unalive", "mut", "mout"};
-                String[] love = {"https://i.imgur.com/qIpwm74.gif", "https://i.imgur.com/JYeYniM.gif", "https://i.imgur.com/PoMfSSj.gif", "https://i.imgur.com/lmhD0Kj.gif", "https://i.imgur.com/TlIN05P.gif", "https://fr.fanpop.com/clubs/anime/images/32299263/title/nichijou-gif-photo", "https://gifimage.net/wp-content/uploads/2017/10/nichijou-suplex-gif-8.gif", "https://data.whicdn.com/images/136666177/original.gif", "https://i.pinimg.com/originals/6d/35/71/6d3571ac3190e24b3f6c023a80a57c10.gif"};
+                String[] love = {"https://i.imgur.com/qIpwm74.gif", "https://i.imgur.com/JYeYniM.gif", "https://i.imgur.com/PoMfSSj.gif", "https://i.imgur.com/lmhD0Kj.gif", "https://i.imgur.com/TlIN05P.gif", "https://images6.fanpop.com/image/photos/32200000/Nichijou-Gif-anime-32299263-500-281.gif", "https://gifimage.net/wp-content/uploads/2017/10/nichijou-suplex-gif-8.gif", "https://data.whicdn.com/images/136666177/original.gif", "https://i.pinimg.com/originals/6d/35/71/6d3571ac3190e24b3f6c023a80a57c10.gif"};
                 String[] ai = {"https://data.whicdn.com/images/301572254/original.gif", "https://media4.giphy.com/media/TiU7R5IAoLdPpTIJgR/giphy.gif", "https://www.icegif.com/wp-content/uploads/haikyuu-icegif-25.gif", "https://64.media.tumblr.com/01dad6d0896e6508e28d3e1d7be5aaa7/a5417439ca59a0fe-ce/s500x750/787ecfdfcb103103574b43855bea2310ede4574f.gifv", "https://media.tenor.com/images/ef918add98c64113beef731f71017f2f/tenor.gif", "https://i.pinimg.com/originals/b5/f8/df/b5f8dfc7fa177babd09f64f34c902ef8.gif", "https://media0.giphy.com/media/yZWsMXuXP9e5a/giphy.gif", "https://media.tenor.com/images/c1eecdb831fa7c106d30ee0a9940035f/tenor.gif", "https://i.pinimg.com/originals/56/b8/a3/56b8a35290ad8ed119ce1056d7bfe64a.gif"};
                 String str = ali.getContent().toLowerCase(Locale.ROOT);
                 BigInteger B = new BigInteger("421966408495398912");
