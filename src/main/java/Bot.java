@@ -278,7 +278,7 @@ public class Bot {
                 if (event.getMessage().getAuthor().isPresent() == true) {
                     Snowflake u = event.getMessage().getAuthor().get().getId();
                     BigInteger username = u.asBigInteger();
-                    BigInteger B = new BigInteger("721399897538166834");
+                    BigInteger B = new BigInteger("564973363681034240");
                     int x;
                     if (username.equals(B)) {
                         x = 100;
